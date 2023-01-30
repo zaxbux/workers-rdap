@@ -14,7 +14,7 @@ export function handleRedirect(handler: RedirectHandler): Handler<string, { Bind
 		if (url) {
 			return c.redirect(`${url}${query}`, 302)
 		} else if (urls.length > 0) {
-			console.debug(`Found service URLs (${urls.join()}) for query "${query}" but none matching current request protocol '${requestUrl.protocol}'`)
+			console.info(`Found service URLs (${urls.join()}) for query "${query}" but none matching current request protocol '${requestUrl.protocol}'`)
 		}
 
 		const [base, value] = query.split('/', 2)

@@ -10,16 +10,10 @@ export default { getServiceUrls, resolvePointer }
  */
 export function resolvePointer(domain: string): { network: string; subnet?: string; interface?: string } {
 	let words = domain.split('.')
-	console.debug('words', words)
 	// Remove the `.ip6.arpa` suffix and map elements to numbers
 	let nibbles = words.slice(0, words.length - 2)/* .map(s => parseInt(s, 16)) */
 	nibbles.reverse()
-	console.debug('nibbles', nibbles)
 
-	// let hextets = [];
-	// for (let i = 0; i < nibbles.length; i += 4) {
-	// 	hextets.push(nibbles.slice(i, i + 4).join(''))
-	// }
 	let hextets = nibbles.reduce((acc: string[], _, i, array) => {
 		if (i % 4 === 0) {
 			acc.push(array.slice(i, i + 4).join(''))
@@ -27,9 +21,6 @@ export function resolvePointer(domain: string): { network: string; subnet?: stri
 
 		return acc
 	}, [])
-
-	console.debug('hextets', hextets)
-	console.debug({ network: hextets.slice(0, 3).join(':'), subnet: hextets[4], interface: hextets.slice(5, 8).join(':') })
 
 	return { network: hextets.slice(0, 3).join(':'), subnet: hextets[4], interface: hextets.slice(5, 8).join(':') }
 }

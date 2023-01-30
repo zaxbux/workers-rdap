@@ -15,8 +15,6 @@ const app = new Hono()
 app.route('/bootstrap', bootstrap)
 
 app.onError((error, c) => {
-	//console.log(error)
-
 	if (error instanceof RDAPError) {
 		error.addNotice({
 			title: 'Copyright Notice',

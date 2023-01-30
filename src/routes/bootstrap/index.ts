@@ -166,7 +166,6 @@ async function handleDomain<P extends string = string>(c: Context<P, { Bindings:
 		try {
 			if (QUERY_RE_IPv4_PTR.test(domain)) {
 				const { address, prefixLength } = IPv4.resolvePointer(domain)
-				console.log(address, prefixLength)
 				return IPv4.getServiceUrls(await getRegistry(RegistryFile.IPv4, c.env), address, prefixLength)
 			}
 
