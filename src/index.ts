@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { RDAPError } from './error';
+import { defaultNotice } from './json/response';
 import bootstrap from './routes/bootstrap';
 
 export interface Env {
@@ -16,20 +17,7 @@ app.route('/bootstrap', bootstrap)
 
 app.onError((error, c) => {
 	if (error instanceof RDAPError) {
-		error.addNotice({
-			title: 'Copyright Notice',
-			description: [
-				'Copyright 2023, Zachary Schneider'
-			],
-			links: [
-				{
-					value: c.req.url,
-					href: 'https://github.com/zaxbux/workers-rdap/blob/master/LICENSE',
-					rel: 'license',
-					type: 'text/html',
-				}
-			],
-		})
+		error.addNotice(defaultNotice(c.req.url))
 
 		return c.json(error.json(), error.errorCode, {
 			'Content-Type': 'application/rdap+json',

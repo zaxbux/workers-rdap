@@ -2,7 +2,7 @@ import { Context, Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { Env } from '../..';
 import { BadRequestError } from '../../error';
-import { RDAP_Level_0 } from '../../json/response';
+import { defaultNotice, RDAP_Level_0 } from '../../json/response';
 import { getRegistry, getRegistryWithMetadata, RegistryFile } from '../../registry';
 import AutNum from './autnum';
 import Domain from './domain';
@@ -124,18 +124,7 @@ bootstrap.get('/help', async c => {
 			"rdap_level_0",
 		],
 		notices: [
-			{
-				title: '',
-				description: [],
-				links: [
-					{
-						value: '',
-						rel: 'alternate',
-						type: 'text/html',
-						href: '',
-					}
-				]
-			}
+			defaultNotice(c.req.url)
 		],
 	}
 

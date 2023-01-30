@@ -25,4 +25,19 @@ export interface NRO_RDAP_Profile_0 extends RDAP_Level_0<[...RDAP_Level_0['rdapC
 	description?: string[];
 }
 
-
+export function defaultNotice(url: string): Notice {
+	return {
+		title: 'Copyright Notice',
+		description: [
+			'Copyright 2023, Zachary Schneider'
+		],
+		links: [
+			{
+				value: url,
+				href: 'https://github.com/zaxbux/workers-rdap/blob/master/LICENSE',
+				rel: 'license',
+				type: 'text/html',
+			}
+		],
+	}
+}
